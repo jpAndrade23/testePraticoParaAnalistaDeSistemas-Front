@@ -1,0 +1,1 @@
+# testePraticoParaAnalistaDeSistemas-Front
