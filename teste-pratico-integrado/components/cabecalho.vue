@@ -1,15 +1,21 @@
 <template>
-    <footer class="w-100 d-flex align-items-center" >
+    <header class="w-100 d-flex align-items-center" >
         <div class="container  d-flex ml-5 justify-content-between">
-            <img src="/logoIntegrado.png" alt="logo integrado cabecalho" :width="imageWidth" :height="imageHeight"  class="mr-auto mt-3"/>
+            <a href="/">
+                <img src="/logoIntegrado.png" alt="logo integrado cabecalho" :width="imageWidth" :height="imageHeight"  class="mr-auto mt-3"/>
+            </a>
             <div class="d-flex classesCabecalho ">
                 <ul class="d-flex mt-2">
-                    <li class=" pr-10">Graduação</li>
-                    <li class="pr-10">Pós-Graduação</li>
+                    <a href="graduacao">
+                        <li class=" pr-10">Graduação</li>
+                    </a>
+                    <a href="pos-graduacao">
+                        <li class="pr-10">Pós-Graduação</li>
+                    </a>
                 </ul>
             </div>
         </div>
-    </footer>
+    </header>
 </template>
 
 <script>
@@ -24,7 +30,7 @@ export default {
 </script>
 
 <style scoped>
-    footer {
+    header {
         background: #232228;
         height: 60px;
     }
@@ -40,5 +46,9 @@ export default {
     }
     .classesCabecalho{
         margin-left: 2em;
+    }
+    a{
+        text-decoration: none;
+        color: white;
     }
 </style>
