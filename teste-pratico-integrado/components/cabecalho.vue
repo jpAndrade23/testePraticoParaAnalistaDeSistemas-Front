@@ -36,9 +36,9 @@ export default {
     li{
         padding: 10px;
         padding-left: 20px;
-        font-size: 15px;
+        
     }
     .classesCabecalho{
-        margin-left: 20%;
+        margin-left: 2em;
     }
 </style>
