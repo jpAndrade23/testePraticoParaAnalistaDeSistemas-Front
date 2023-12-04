@@ -1,4 +1,3 @@
- 
 <template>
     <Cabecalho />
     <div class="container">
@@ -11,17 +10,16 @@
 <script>
     import BarraDeBusca from '~/components/barraDeBusca.vue';
     import Cabecalho from '../components/cabecalho.vue';
-    import Filtros from '../components/filtros.vue';
+    import Filtros from '../components/filtros.vue';  
     export default{
         components: {
             BarraDeBusca,
             Cabecalho,
             Filtros
         }
-    }
-
-
+    }  
 </script>
+
 
 <style>
     h1{
@@ -30,4 +28,3 @@
     }
    
 </style>
-  
