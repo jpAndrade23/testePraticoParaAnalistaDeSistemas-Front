@@ -16,6 +16,9 @@
                 <Formulario />
             </div>
         </div>
+        <div class="formulario">
+            <InformacaoCurso :dadosCurso="curso"/>
+        </div>
     </div>
     <Rodape />
 </template>
@@ -23,28 +26,12 @@
 <script>
 import Cabecalho from '../../components/cabecalho.vue';
 import Formulario from '../../components/formulario.vue';
-import Rodape from '../../components/rodape.vue';   
+import Rodape from '../../components/rodape.vue';
+import InformacaoCurso from '~/components/informacaoCurso.vue';   
  
 export default {
     data(){
-        const curso = {
-                            "id": 3,
-                            "nome": "TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
-                            "duracao": 5,
-                            "descricao": "curso do integrado",
-                            "valor": 740.09,
-                            "modalidadeId": 2,
-                            "imagemCurso": "https://firebasestorage.googleapis.com/v0/b/endless-sol-403405.appspot.com/o/images%2FR.png?alt=media&token=2619069b-a677-49a6-bde4-e50e0481a251",
-                            "tipoId": 2,
-                            "tipoDoCurso": {
-                                "id": 2,
-                                "nome": "graducao"
-                            },
-                            "modalidadeDoCurso": {
-                                "id": 2,
-                                "nome": "EAD"
-                            }
-                        }
+        const curso =[]
             return { curso }
         }
    

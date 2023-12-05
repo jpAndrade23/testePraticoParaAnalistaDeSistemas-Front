@@ -5,26 +5,26 @@
             <form>
                 <template v-if="this.passoAtual === 1">
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="nome" class="entradaDeTexto p-3" v-model="dadosAluno.nome" type="text" placeholder="Nome Completo">
+                    <input id="nome" class="entradaDeTexto p-3" v-model="dadosAluno.nome" type="text" required placeholder="Nome Completo">
                 </div>
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="email" class="entradaDeTexto p-3" v-model="dadosAluno.email" type="text" placeholder="E-mail">
+                    <input id="email" class="entradaDeTexto p-3" v-model="dadosAluno.email" type="email" required placeholder="E-mail">
                 </div>
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="telefone" class="entradaDeTexto p-3" v-model="dadosAluno.telefone" type="text" placeholder="Telefone">
+                    <input id="telefone" class="entradaDeTexto p-3" v-model="dadosAluno.telefone" type="number" required placeholder="Telefone">
                 </div>
                 
                 </template>
 
                 <template v-if="this.passoAtual === 2">
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CEP" class="entradaDeTexto p-3" v-model="dadosAluno.CEP" type="text" placeholder="CEP">
+                        <input id="CEP" class="entradaDeTexto p-3" v-model="dadosAluno.CEP" type="text" required placeholder="CEP">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CPF" class="entradaDeTexto p-3" v-model="dadosAluno.CPF" type="text" placeholder="CPF">
+                        <input id="CPF" class="entradaDeTexto p-3" v-model="dadosAluno.CPF" type="text"  required placeholder="CPF">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="dataNascimento" class="entradaDeTexto p-3" v-model="dadosAluno.dataNascimento" type="text" placeholder="Data de Nascimento">
+                        <input id="dataNascimento" class="entradaDeTexto p-3" v-model="dadosAluno.dataNascimento" type="text" required placeholder="Data de Nascimento">
                     </div>
 
 
@@ -37,7 +37,7 @@
                         <label class='bg-light rounded-lg text-center entradaImagem'>
                             Imagem RG ou CNH
                             <div>
-                                <input type='file' name='image2' accept='image/*' required class='bg-light d-none'/>
+                                <input type='file' name='imagemDoocumento' id="imagemDoocumento" accept='image/*' required class='bg-light d-none'/>
                             </div>
                         </label>
                     </div>
@@ -49,11 +49,11 @@
                             Voltar
                         </button>
 
-                        <button type="button"  @click="submit" v-if="ehUltimoPasso" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        <button type="submit"  @click="submit" v-if="ehUltimoPasso" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
                             Salvar
                         </button>
                         
-                        <button type="button" @click="irParaOProximoPasso" v-else class="btn btn-primary" data-toggle="button" >
+                        <button type="submit" @click="irParaOProximoPasso" v-else class="btn btn-primary" data-toggle="button" >
                             Próximo
                         </button>
                     </div>
@@ -66,10 +66,12 @@
 
 <script>
 
+import { ref } from 'vue'
 export default {
     setup () {
         
-        const passoAtual = ref(1);
+        const passoAtual = ref(1)
+        
         const dadosAluno = {
             nome: '',
             email: '',
@@ -83,13 +85,16 @@ export default {
 
         return  { passoAtual, dadosAluno } 
     },
+    created(){
+        this.passoAtual = 1;
+    },
     computed: {
         ehPrimeiroPasso(){
-            return this.passoAtual === 1
+            return this.passoAtual === 1;
         },
         ehUltimoPasso(){
-            return this.passoAtual === 3
-        }
+            return this.passoAtual === 3;
+        },
     },
     methods: {
         voltarParaOPassoAnterior() {
@@ -98,13 +103,12 @@ export default {
             }
         },
         irParaOProximoPasso() {
-            console.log(this.passoAtual)
             if(!this.ehUltimoPasso){
                 this.passoAtual +=1;
             }
         },
         submit() {
-            console.log(this.dadosAluno)
+            
         }
     }
 }
