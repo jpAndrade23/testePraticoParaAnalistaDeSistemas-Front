@@ -5,7 +5,7 @@
             <h1 class="text-center mt-4 font-weight-bold">-Encontre seu curso-</h1>
             <BarraDeBusca :rota="''" />
             <Filtros />
-            <GridCurso :dadosURI="''"/>
+            <GridCurso :dadosURI="'nome/'"/>
         </div>
         <Rodape class="mt-auto" />
     </div>

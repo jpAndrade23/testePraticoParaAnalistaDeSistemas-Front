@@ -1,10 +1,10 @@
 <template>
     <div class="w-100 align-items-center justify-content-center d-flex">
         <div>
-            <input type="text" name="input-pesquisa" id="input-pesquisa" placeholder="Buscar...">
+            <input type="text" v-model="dadoBarraDePesquisa" name="input-pesquisa" id="input-pesquisa" placeholder="Buscar...">
         </div>
         <div >
-            <button>
+            <button @click="buscaDados">
                 Pesquisar
             </button>
         </div>
@@ -13,8 +13,22 @@
 
 <script>
 export default {
-    setup () {
-        return {}
+    data(){
+        return{
+            dadoBarraDePesquisa: '',
+        }
+    },
+    props: {
+        rota: {
+            type: String,
+        }
+    },
+    methods: {
+        buscaDados() {
+            if(this.dadoBarraDePesquisa.length>0){
+                this.$router.push(this.rota + '/' + this.dadoBarraDePesquisa)
+            }
+        }
     }
 }
 </script>
