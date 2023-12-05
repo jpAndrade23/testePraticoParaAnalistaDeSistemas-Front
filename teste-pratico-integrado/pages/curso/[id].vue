@@ -10,7 +10,11 @@
                     </div>
                 </div>
             </div>
-            <p>{{ curso }}</p>
+        </div>
+        <div  class="formulario">
+            <div>
+                <Formulario />
+            </div>
         </div>
         <Rodape />
     </div>
@@ -18,27 +22,12 @@
 
 <script>
 import Cabecalho from '../../components/cabecalho.vue';
-import Rodape from '../../components/rodape.vue';    
+import Formulario from '../../components/formulario.vue';
+import Rodape from '../../components/rodape.vue';   
+ 
 export default {
     data(){
-        const curso = {
-                        "id": 3,
-                        "nome": "TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
-                        "duracao": 5,
-                        "descricao": "curso do integrado",
-                        "valor": 740.09,
-                        "modalidadeId": 2,
-                        "imagemCurso": "https://firebasestorage.googleapis.com/v0/b/endless-sol-403405.appspot.com/o/images%2FR.png?alt=media&token=ee2f4c9d-7dc5-4891-a8e1-039287bf9c2a",
-                        "tipoId": 2,
-                        "tipoDoCurso": {
-                        "id": 2,
-                        "nome": "Graducao"
-                        },
-                        "modalidadeDoCurso": {
-                        "id": 2,
-                        "nome": "EAD"
-                        }
-                    }
+        const curso = []
         return  { curso } 
     }
    
@@ -63,4 +52,13 @@ export default {
     .nomeCurso{
         font-size: 30px;
     }
+
+    @media only screen and (min-width: 1051px) {
+        .formulario{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
 </style>
