@@ -5,26 +5,26 @@
             <form>
                 <template v-if="this.passoAtual === 1">
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="nome" class="entradaDeTexto p-3" v-model="dadosAluno.nome" type="text" required placeholder="Nome Completo">
+                    <input id="nome" class="entradaDeTexto p-3" v-model="this.dadosAluno.nome" type="text" required placeholder="Nome Completo">
                 </div>
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="email" class="entradaDeTexto p-3" v-model="dadosAluno.email" type="email" required placeholder="E-mail">
+                    <input id="email" class="entradaDeTexto p-3" v-model="this.dadosAluno.email" type="email" required placeholder="E-mail">
                 </div>
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="telefone" class="entradaDeTexto p-3" v-model="dadosAluno.telefone" type="number" required placeholder="Telefone">
+                    <input id="telefone" class="entradaDeTexto p-3" v-model="this.dadosAluno.telefone" type="number" required placeholder="Telefone">
                 </div>
                 
                 </template>
 
                 <template v-if="this.passoAtual === 2">
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CEP" class="entradaDeTexto p-3" v-model="dadosAluno.CEP" type="text" required placeholder="CEP">
+                        <input id="CEP" class="entradaDeTexto p-3" v-model="this.dadosAluno.CEP" type="text" required placeholder="CEP">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CPF" class="entradaDeTexto p-3" v-model="dadosAluno.CPF" type="text"  required placeholder="CPF">
+                        <input id="CPF" class="entradaDeTexto p-3" v-model="this.dadosAluno.CPF" type="text"  required placeholder="CPF">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="dataNascimento" class="entradaDeTexto p-3" v-model="dadosAluno.dataNascimento" type="text" required placeholder="Data de Nascimento">
+                        <input id="dataNascimento" class="entradaDeTexto p-3" v-model="this.dadosAluno.dataNascimento" type="text" required placeholder="Data de Nascimento">
                     </div>
 
 
@@ -37,7 +37,7 @@
                         <label class='bg-light rounded-lg text-center entradaImagem'>
                             Imagem RG ou CNH
                             <div>
-                                <input type='file' name='imagemDoocumento' id="imagemDoocumento" accept='image/*' required class='bg-light d-none'/>
+                                <input type='file' @change="uploadImages"  name='imagemDoocumento' id="imagemDoocumento" accept='image/*' required class='bg-light d-none'/>
                             </div>
                         </label>
                     </div>
@@ -49,7 +49,7 @@
                             Voltar
                         </button>
 
-                        <button type="submit"  @click="submit" v-if="ehUltimoPasso" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        <button type="button"  @click="submit" v-if="ehUltimoPasso" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
                             Salvar
                         </button>
                         
@@ -67,26 +67,54 @@
 <script>
 
 import { ref } from 'vue'
+import { storage } from '../lib/useFireBase'; 
+import { ref as fbRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 export default {
     setup () {
+    const passoAtual = ref(1)
+    
+    const dadosAluno = {
+        nome: '',
+        email: '',
+        telefone: '',
+        CEP: '',
+        CPF: '',
+        dataNascimento: '',
+        imagemDoocumento: ''
+    }
+    const uploadImages = async(event)=>{
+        const arquivos = event.target.files[0];
+      
+
+
+        const storageRef = fbRef(storage, `images/${arquivos.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, arquivos);
+
+        uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         
-        const passoAtual = ref(1)
-        
-        const dadosAluno = {
-            nome: '',
-            email: '',
-            telefone: '',
-            CEP: '',
-            CPF: '',
-            dataNascimento: '',
-            imagemDoocumento: ''
+        },
+        (error) => {
+        alert(error);
+        },
+        () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            dadosAluno.imagemDoocumento = url;  // Corrigido aqui
+            });
         }
+        );
+    }
+    return  { uploadImages, passoAtual, dadosAluno }  // Corrigido aqui
+},
 
-
-        return  { passoAtual, dadosAluno } 
-    },
     created(){
-        this.passoAtual = 1;
+        this.passoAtual = 1
+    },
+    mounted(){
+        this.passoAtual = 1
+
     },
     computed: {
         ehPrimeiroPasso(){
@@ -108,7 +136,7 @@ export default {
             }
         },
         submit() {
-            
+           
         }
     }
 }
