@@ -4,8 +4,8 @@
         <div class="container flex-grow-1">
             <h1 class="text-center mt-4 font-weight-bold">-Encontre seu curso-</h1>
             <BarraDeBusca :rota="''" />
-            <Filtros />
-            <GridCurso :dadosURI="'nome/'"/>
+            <Filtros @atualizar-filtros="atualizarFiltros" />
+            <GridCurso :dadosURI="URI" :EAD="filtros.EAD" :presencial="filtros.presencial"/>
         </div>
         <Rodape class="mt-auto" />
     </div>
@@ -26,6 +26,29 @@
             GridCurso,
             Rodape
         },
+        data() {
+            return {
+                filtros: {
+                    presencial: false,
+                    EAD: false
+                },
+                URI: ref('nome/'),
+            }
+        },
+        methods: {
+            atualizarFiltros(novosFiltros) {
+            this.filtros = novosFiltros;
+            this.constroiURI();
+        },
+        constroiURI(){
+            if(this.filtros.presencial === true && this.filtros.EAD === false || this.filtros.presencial === false && this.filtros.EAD === true){
+                this.URI = 'nome/'
+                console.log(this.URI)
+            } else {
+                this.URI = 'nome/'
+            }
+        }
+    }
     
     }
 </script>

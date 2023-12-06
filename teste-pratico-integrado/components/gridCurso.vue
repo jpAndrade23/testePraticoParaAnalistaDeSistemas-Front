@@ -6,7 +6,7 @@
     </div>
 </template>
 <script setup>
-    import { ref, onMounted, defineProps } from 'vue';
+    import { ref, onMounted, watch } from 'vue';
     import { useRoute } from 'vue-router';
 
     const route = useRoute();
@@ -14,16 +14,30 @@
     
     const props = defineProps({
         dadosURI: String,
+        presencial: Boolean,
+        EAD: Boolean
     })
-    onMounted(async () => {
-      
+
+    const fetchData = async () => {
+        
         let id = route.params.id; 
 
         if(id === undefined){
             id = ''
         }
-        dados.value = await $fetch(`http://localhost:8000/curso/${props.dadosURI}${id}`, 'get');
-    });
+        if(props.presencial === false && props.EAD === true){
+            console.log(`http://localhost:8000/curso/${props.dadosURI}EAD${id}/`)
+            dados.value = await $fetch(`http://localhost:8000/curso/${props.dadosURI}EAD/${id}`, 'get');
+        } else if(props.presencial === true && props.EAD === false){
+            dados.value = await $fetch(`http://localhost:8000/curso/${props.dadosURI}Presencial/${id}`, 'get');
+        } else {
+            dados.value = await $fetch(`http://localhost:8000/curso/${props.dadosURI}${id}`, 'get');
+        }
+    };
+
+    onMounted(fetchData);
+
+    watch(props, fetchData);
 </script>
 
 

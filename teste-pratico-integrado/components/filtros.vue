@@ -1,22 +1,28 @@
 <template>
     <div class="d-flex justify-content-center">
         <div>
-            <input type="checkbox" class="btn-check" id="Presencial" >
+            <input type="checkbox" v-model="presencial" @change="logEstados" class="btn-check" id="Presencial" >
             <label class="btn btn-outline-primary w-40" for="Presencial">Presencial</label>
         </div>
         <div>
-            <input type="checkbox" class="btn-check" id="EAD" >
+            <input type="checkbox" v-model="EAD" @change="logEstados" class="btn-check" id="EAD" >
             <label class="btn btn-outline-primary w-40" for="EAD">EAD</label>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    setup () {
-        
-
-        return {}
+    export default {
+        data() {
+            return {
+                presencial: false,
+                EAD: false
+        }
+    },
+    methods: {
+        logEstados() {
+            this.$emit('atualizar-filtros', { presencial: this.presencial, EAD: this.EAD });
+        }
     }
 }
 </script>
