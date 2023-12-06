@@ -2,14 +2,16 @@ import firebase from 'firebase/compat/app';
 import {getStorage} from 'firebase/storage'
 import { initializeApp } from "firebase/app";
 
+
+//Deixei essas variáveis aqui sem utilizar um dotenv para manter o upload funcionando e permitir que a aplicação funcione
 const firebaseConfig = {
-  apiKey: process.env.NUXT_PUBLIC_API_KEY ,
-  authDomain:process.env.NUXT_PUBLIC_AUTH_DOMAIN ,
-  projectId: process.env.NUXT_PUBLIC_PROJECT_ID,
-  storageBucket:process.env.NUXT_PUBLIC_STORAGE_BUCKET ,
-  messagingSenderId: process.env.NUXT_PUBLIC_MESSAGINGSENDERID,
-  appId: process.env.NUXT_PUBLIC_APPID,
-  measurementId: process.env.NUXT_PUBLIC_MEASUREMENTID
+  apiKey: "AIzaSyDrx5Z5Hd0MD_Nd5nHHygNAcJ2pgbrxzCU",
+  authDomain: "endless-sol-403405.firebaseapp.com" ,
+  projectId: "endless-sol-403405",
+  storageBucket: "endless-sol-403405.appspot.com" ,
+  messagingSenderId: "558587543852",
+  appId: "1:558587543852:web:2ba73c8f1852d8ffd7ac89",
+  measurementId: "G-5WFJNYSNWK"
 };
 
   

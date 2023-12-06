@@ -21,7 +21,7 @@
                         <input id="CEP" class="entradaDeTexto p-3" v-model="dadosAluno.CEP" type="number" required placeholder="CEP">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CPF" class="entradaDeTexto p-3" v-model="dadosAluno.CPF" type="number"  required placeholder="CPF">
+                        <input id="CPF" class="entradaDeTexto p-3" v-model="dadosAluno.CPF" type="text"  required placeholder="CPF">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
                         <input id="dataNascimento" class="entradaDeTexto p-3" v-model="dadosAluno.dataNascimento" type="date" required placeholder="Data de Nascimento">
@@ -40,9 +40,6 @@
                                 <input type='file' @change="uploadImages"  name='imagemDoocumento' id="imagemDoocumento" accept='image/*' required class='bg-light d-none'/>
                             </div>
                         </label>
-                        <div v-if="startUpload" class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :aria-valuenow="contador" aria-valuemin="0" aria-valuemax="100" style="{ width: contador + '%' }"></div>
-                        </div>
                     </div>
                 </template>
                 <div class="m-3">
@@ -150,7 +147,7 @@ export default {
             if(!this.ehUltimoPasso){
                 if(this.passoAtual === 1 && this.dadosAluno.nome.length>10 && this.dadosAluno.email.length>0 && this.dadosAluno.telefone>8){
                     this.passoAtual +=1;
-                } else if(this.passoAtual === 2 && this.validaCEP() && this.dadosAluno.CPF ){
+                } else if(this.passoAtual === 2 && String(this.dadosAluno.CEP).length === 8 && String(this.dadosAluno.CPF).length === 11){
                     this.passoAtual +=1;
                 } else if(this.passoAtual === 3)
                             this.passoAtual +=1;
@@ -185,19 +182,7 @@ export default {
             postData();
 
         },
-        validaCPF(){
-
-        },
-        validaCEP(){
-            let CEP
-            const fetchData = async () => {
-                CEP.value = await $fetch(`https://viacep.com.br/ws/${this.dadosAluno.CEP}/json/`, 'get');
-                console.log(CEP)
-       
-            }
-            fetchData()
-            return CEP.cep? true:false
-        },
+        
     }
 }
 </script>
@@ -241,8 +226,8 @@ export default {
         cursor: pointer;
     }
     .btn-primary {
-        background-color: #1586CB !important; /* Substitua #yourColor pela cor desejada */
-        border-color: #1586CB !important; /* Substitua #yourColor pela cor desejada */
+        background-color: #1586CB !important; 
+        border-color: #1586CB !important; 
     }
     
     @media only screen and (min-width: 1051px) {
