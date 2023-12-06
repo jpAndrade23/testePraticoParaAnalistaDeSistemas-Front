@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <ComponeneteTeste  v-if="curso" :curso="curso"/>
+        <BaseTelaCurso  v-if="curso" :curso="curso"/>
        
     </div>
 </template>

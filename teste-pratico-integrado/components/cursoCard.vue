@@ -3,7 +3,7 @@
         <div class="container d-flex align-items-end" :style="{ backgroundImage: 'url(' + dadosCurso.imagemCurso + ')' }">
             <div>
                 <p class="modalidade mb-0"> {{ dadosCurso.modalidadeDoCurso.nome }}</p>
-                <p class="tipo mb-0"> {{ dadosCurso.tipoDoCurso.nome }}</p>
+                <p class="tipo mb-0"> {{ dadosCurso.tipoDoCurso.nomeDeExibicao }}</p>
                 <p class="curso">{{ dadosCurso.nome }}</p>
             </div>
         </div>

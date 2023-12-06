@@ -139,7 +139,7 @@ export default {
 
         },
         validaCEP(){
-
+            
         }
     },
     methods: {

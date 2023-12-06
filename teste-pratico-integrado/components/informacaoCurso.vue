@@ -2,7 +2,7 @@
     <div class="informacoes m-5 p-3 text-center">
         <h1>Por dentro do curso</h1>
         <h2 class="apresentacao">Apresentação</h2>
-        <p class="dadosEssenciais">{{dadosCurso.tipoDoCurso.nome}}</p>
+        <p class="dadosEssenciais">{{dadosCurso.tipoDoCurso.nomeDeExibicao}}</p>
         <p class="dadosEssenciais">Duração: {{dadosCurso.duracao}} anos</p>
         <p>{{dadosCurso.descricao}}</p>
         <h1>Parcelas</h1>

@@ -5,7 +5,7 @@
             <div  class="topoPagina w-100 vh-160 d-flex align-items-end" :style="{ backgroundImage: 'url(' + curso.imagemCurso + ')' }">
                 <div class="w-100 justify-content-center d-flex">
                     <div v-if="curso.nome">
-                        <p class="tipo">{{ curso.tipoDoCurso.nome }} </p>
+                        <p class="tipo">{{ curso.tipoDoCurso.nomeDeExibicao }} </p>
                         <p class="nomeCurso">{{ curso.nome }} </p>
                     </div>
                 </div>
