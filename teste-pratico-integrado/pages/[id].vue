@@ -32,7 +32,7 @@
                     presencial: false,
                     EAD: false
                 },
-                URI: '',
+                URI: ref('nome/'),
             }
         },
         methods: {
@@ -42,9 +42,9 @@
         },
         constroiURI(){
             if(this.filtros.presencial === true && this.filtros.EAD === false || this.filtros.presencial === false && this.filtros.EAD === true){
-                this.URI = 'modalidade/'
+                this.URI = 'nome/'
             } else {
-                this.URI = ''
+                this.URI = 'nome/'
             }
         }
     }

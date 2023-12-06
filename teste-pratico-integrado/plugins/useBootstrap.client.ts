@@ -1,3 +1,3 @@
-import bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap'
 
-export default defineNuxtPlugin(nuxtApp => { nuxtApp.provide('bootstrap',bootstrap)})
+export default defineNuxtPlugin(nuxtApp => { nuxtApp.provide('bootstrap', bootstrap)})

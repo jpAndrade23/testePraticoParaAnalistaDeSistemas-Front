@@ -3,7 +3,7 @@
         <Cabecalho />
         <div class="container flex-grow-1">
             <h1 class="text-center mt-4 font-weight-bold">-Encontre seu curso-</h1>
-            <BarraDeBusca :rota="''" />
+            <BarraDeBusca :rota="'graduacao'" />
             <Filtros @atualizar-filtros="atualizarFiltros" />
             <GridCurso :dadosURI="URI" :EAD="filtros.EAD" :presencial="filtros.presencial"/>
         </div>
@@ -32,7 +32,7 @@
                     presencial: false,
                     EAD: false
                 },
-                URI: '',
+                URI: 'busca/Graduacao/',
             }
         },
         methods: {
@@ -42,9 +42,9 @@
         },
         constroiURI(){
             if(this.filtros.presencial === true && this.filtros.EAD === false || this.filtros.presencial === false && this.filtros.EAD === true){
-                this.URI = 'modalidade/'
+                this.URI = 'modalidade/Graduacao/'
             } else {
-                this.URI = ''
+                this.URI = 'busca/Graduacao/'
             }
         }
     }
