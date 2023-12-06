@@ -26,7 +26,6 @@
             id = ''
         }
         if(props.presencial === false && props.EAD === true){
-            console.log(`http://localhost:8000/curso/${props.dadosURI}EAD${id}/`)
             dados.value = await $fetch(`http://localhost:8000/curso/${props.dadosURI}EAD/${id}`, 'get');
         } else if(props.presencial === true && props.EAD === false){
             dados.value = await $fetch(`http://localhost:8000/curso/${props.dadosURI}Presencial/${id}`, 'get');

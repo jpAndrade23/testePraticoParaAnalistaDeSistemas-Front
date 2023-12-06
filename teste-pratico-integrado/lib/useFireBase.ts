@@ -12,7 +12,6 @@ const firebaseConfig = {
   measurementId: process.env.NUXT_PUBLIC_MEASUREMENTID
 };
 
-//export default function UploadImage(image: File) { 
   
     export const app = initializeApp(firebaseConfig);
     export const storage =  getStorage(app)

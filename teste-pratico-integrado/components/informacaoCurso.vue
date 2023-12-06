@@ -17,7 +17,7 @@
     
     export default {
     setup(){
-        let precoCorrigido = ref(0); // Use 'ref' para tornar 'precoCorrigido' reativo
+        let precoCorrigido = ref(0); 
         return { precoCorrigido }
     },
     props: {
@@ -31,7 +31,7 @@
     methods: {
         corrigeCasasDecimais() {
             let preco = this.dadosCurso.valor/(this.dadosCurso.duracao*10)
-            this.precoCorrigido = preco.toFixed(2) // Use 'this' para acessar 'precoCorrigido'
+            this.precoCorrigido = preco.toFixed(2) 
             return this.precoCorrigido;
         }
     }

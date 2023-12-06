@@ -6,10 +6,10 @@
             </a>
             <div class="d-flex classesCabecalho ">
                 <ul class="d-flex mt-2">
-                    <a href="graduacao">
+                    <a href="/graduacao">
                         <li class=" pr-10">Graduação</li>
                     </a>
-                    <a href="pos-graduacao">
+                    <a href="/pos-graduacao">
                         <li class="pr-10">Pós-Graduação</li>
                     </a>
                 </ul>

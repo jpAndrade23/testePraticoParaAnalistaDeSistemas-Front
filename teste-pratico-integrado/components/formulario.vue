@@ -3,34 +3,34 @@
         <div>
             <h2 class="text-center font-weight-bold tituloForm p-3">-Cadastro-</h2>
             <form>
-                <template v-if="this.passoAtual === 1">
+                <template v-if="passoAtual === 1">
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="nome" class="entradaDeTexto p-3" v-model="this.dadosAluno.nome" type="text" required placeholder="Nome Completo">
+                    <input id="nome" class="entradaDeTexto p-3" v-model="dadosAluno.nome" type="text" required placeholder="Nome Completo">
                 </div>
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="email" class="entradaDeTexto p-3" v-model="this.dadosAluno.email" type="email" required placeholder="E-mail">
+                    <input id="email" class="entradaDeTexto p-3" v-model="dadosAluno.email" type="email" required placeholder="E-mail">
                 </div>
                 <div class="justify-content-center d-flex mb-3">
-                    <input id="telefone" class="entradaDeTexto p-3" v-model="this.dadosAluno.telefone" type="number" required placeholder="Telefone">
+                    <input id="telefone" class="entradaDeTexto p-3" v-model="dadosAluno.telefone" type="number" required placeholder="Telefone">
                 </div>
                 
                 </template>
 
-                <template v-if="this.passoAtual === 2">
+                <template v-if="passoAtual === 2">
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CEP" class="entradaDeTexto p-3" v-model="this.dadosAluno.CEP" type="text" required placeholder="CEP">
+                        <input id="CEP" class="entradaDeTexto p-3" v-model="dadosAluno.CEP" type="number" required placeholder="CEP">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="CPF" class="entradaDeTexto p-3" v-model="this.dadosAluno.CPF" type="text"  required placeholder="CPF">
+                        <input id="CPF" class="entradaDeTexto p-3" v-model="dadosAluno.CPF" type="number"  required placeholder="CPF">
                     </div>
                     <div class="justify-content-center d-flex mb-3">
-                        <input id="dataNascimento" class="entradaDeTexto p-3" v-model="this.dadosAluno.dataNascimento" type="text" required placeholder="Data de Nascimento">
+                        <input id="dataNascimento" class="entradaDeTexto p-3" v-model="dadosAluno.dataNascimento" type="date" required placeholder="Data de Nascimento">
                     </div>
 
 
                 </template>
 
-                <template v-if="this.passoAtual === 3">
+                <template v-if="passoAtual === 3">
                     
 
                     <div class='d-flex justify-content-center align-items-center'>
@@ -40,6 +40,9 @@
                                 <input type='file' @change="uploadImages"  name='imagemDoocumento' id="imagemDoocumento" accept='image/*' required class='bg-light d-none'/>
                             </div>
                         </label>
+                        <div v-if="startUpload" class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :aria-valuenow="contador" aria-valuemin="0" aria-valuemax="100" style="{ width: contador + '%' }"></div>
+                        </div>
                     </div>
                 </template>
                 <div class="m-3">
@@ -53,26 +56,34 @@
                             Salvar
                         </button>
                         
-                        <button type="submit" @click="irParaOProximoPasso" v-else class="btn btn-primary" data-toggle="button" >
+                        <button type="button"   @click="irParaOProximoPasso" v-else class="btn btn-primary" data-toggle="button" >
                             Próximo
                         </button>
                     </div>
                     
                 </div>
             </form>
+            
+
+
         </div>
     </div>
 </template>
 
 <script>
-
+import { useRoute } from 'vue-router';
 import { ref } from 'vue'
 import { storage } from '../lib/useFireBase'; 
 import { ref as fbRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 export default {
+    props:{
+        id: {
+            type: Number
+        }
+    },
     setup () {
     const passoAtual = ref(1)
-    
+    let contador = 0;
     const dadosAluno = {
         nome: '',
         email: '',
@@ -82,10 +93,11 @@ export default {
         dataNascimento: '',
         imagemDoocumento: ''
     }
+    
+    
     const uploadImages = async(event)=>{
         const arquivos = event.target.files[0];
       
-
 
         const storageRef = fbRef(storage, `images/${arquivos.name}`);
         const uploadTask = uploadBytesResumable(storageRef, arquivos);
@@ -94,19 +106,19 @@ export default {
         'state_changed',
         (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        
+            contador = progress;
         },
         (error) => {
         alert(error);
         },
         () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            dadosAluno.imagemDoocumento = url;  // Corrigido aqui
+            dadosAluno.imagemDoocumento = url;  
             });
         }
         );
     }
-    return  { uploadImages, passoAtual, dadosAluno }  // Corrigido aqui
+    return  { uploadImages, passoAtual, dadosAluno, contador}  
 },
 
     created(){
@@ -123,6 +135,12 @@ export default {
         ehUltimoPasso(){
             return this.passoAtual === 3;
         },
+        validaCPF(){
+
+        },
+        validaCEP(){
+
+        }
     },
     methods: {
         voltarParaOPassoAnterior() {
@@ -132,11 +150,42 @@ export default {
         },
         irParaOProximoPasso() {
             if(!this.ehUltimoPasso){
-                this.passoAtual +=1;
+                if(this.passoAtual === 1 && this.dadosAluno.nome.length>10 && this.dadosAluno.email.length>0 && this.dadosAluno.telefone>8){
+                    this.passoAtual +=1;
+                } else if(this.passoAtual === 2 && this.dadosAluno.CEP && this.dadosAluno.CPF ){
+                    this.passoAtual +=1;
+                } else if(this.passoAtual === 3)
+                            this.passoAtual +=1;
+
             }
         },
         submit() {
-           
+
+            
+           const aluno = {
+                nome: this.dadosAluno.nome,
+                CPF: String(this.dadosAluno.CPF),
+                telefone: String(this.dadosAluno.telefone),
+                email: this.dadosAluno.email,
+                CEP: String(this.dadosAluno.CEP), 
+                dataNascimento: this.dadosAluno.dataNascimento,
+                imagemDoocumento: this.dadosAluno.imagemDoocumento,
+                cursoId: this.id
+            }
+            const postData = async () => {
+                await $fetch('http://localhost:8000/futuro-aluno',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(aluno)
+                })
+                alert('Cadastrado')
+            }
+
+
+            postData();
+
         }
     }
 }

@@ -43,7 +43,6 @@
         constroiURI(){
             if(this.filtros.presencial === true && this.filtros.EAD === false || this.filtros.presencial === false && this.filtros.EAD === true){
                 this.URI = 'nome/'
-                console.log(this.URI)
             } else {
                 this.URI = 'nome/'
             }

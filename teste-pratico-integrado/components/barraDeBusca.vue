@@ -26,7 +26,6 @@ export default {
     methods: {
         buscaDados() {
             if(this.dadoBarraDePesquisa.length>0){
-                console.log(this.rota)
                 this.$router.push(this.rota + '/' + this.dadoBarraDePesquisa)
             }
         }
