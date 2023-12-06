@@ -75,6 +75,10 @@ import { useRoute } from 'vue-router';
 import { ref } from 'vue'
 import { storage } from '../lib/useFireBase'; 
 import { ref as fbRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+
+
+
+
 export default {
     props:{
         id: {
@@ -134,12 +138,6 @@ export default {
         },
         ehUltimoPasso(){
             return this.passoAtual === 3;
-        },
-        validaCPF(){
-
-        },
-        validaCEP(){
-            
         }
     },
     methods: {
@@ -152,7 +150,7 @@ export default {
             if(!this.ehUltimoPasso){
                 if(this.passoAtual === 1 && this.dadosAluno.nome.length>10 && this.dadosAluno.email.length>0 && this.dadosAluno.telefone>8){
                     this.passoAtual +=1;
-                } else if(this.passoAtual === 2 && this.dadosAluno.CEP && this.dadosAluno.CPF ){
+                } else if(this.passoAtual === 2 && this.validaCEP() && this.dadosAluno.CPF ){
                     this.passoAtual +=1;
                 } else if(this.passoAtual === 3)
                             this.passoAtual +=1;
@@ -186,7 +184,20 @@ export default {
 
             postData();
 
-        }
+        },
+        validaCPF(){
+
+        },
+        validaCEP(){
+            let CEP
+            const fetchData = async () => {
+                CEP.value = await $fetch(`https://viacep.com.br/ws/${this.dadosAluno.CEP}/json/`, 'get');
+                console.log(CEP)
+       
+            }
+            fetchData()
+            return CEP.cep? true:false
+        },
     }
 }
 </script>
